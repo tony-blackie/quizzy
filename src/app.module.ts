@@ -1,10 +1,17 @@
 import { Module } from '@nestjs/common';
-import { TasksModule } from './tasks/tasks.module';
+import { QuizesModule } from './quizes/quizes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { QuestionsModule } from './questions/questions.module';
+import { AnswersModule } from './answers/answers.module';
+import { Quiz } from './entities/quizes.entity';
+import { Question } from './entities/questions.entity';
+import { Answer } from './entities/answers.entity';
 
 @Module({
     imports: [
-        TasksModule,
+        QuizesModule,
+        QuestionsModule,
+        AnswersModule,
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: 'localhost',
@@ -12,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             username: 'postgres',
             password: 'postgres',
             database: 'quiz',
-            autoLoadEntities: true,
+            entities: [Quiz, Question, Answer],
             synchronize: true,
         }),
     ],
